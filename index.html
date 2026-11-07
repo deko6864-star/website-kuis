@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffe7f0">
+<title>Hari Spesial Safira 🎀</title>
+<style>
+:root{--pink:#ff79a9;--deep:#9c4774;--cream:#fff9fc;--ink:#55384a}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;padding:22px 14px;background:linear-gradient(145deg,#ffe5ef,#f4eaff 55%,#fff4dc);font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);display:grid;place-items:center;overflow-x:hidden}
+.wrap{width:min(100%,520px)}.card{background:#ffffffdf;border:2px solid white;border-radius:28px;padding:25px 21px;box-shadow:0 16px 45px #a95b8425;text-align:center;backdrop-filter:blur(8px)}
+.tag{display:inline-block;background:#ffe2ed;color:#a34b75;padding:7px 13px;border-radius:99px;font-size:12px;font-weight:800;letter-spacing:.08em}h1{font-size:clamp(29px,8vw,43px);line-height:1.12;margin:15px 0 8px;color:#b94f82}.lead{color:#805f73;line-height:1.65;margin:8px auto 18px}.bear{font-size:70px;margin:8px 0 2px;filter:drop-shadow(0 5px 3px #e9a4c455)}
+button{border:0;border-radius:15px;padding:14px 18px;font-size:16px;font-weight:800;cursor:pointer;background:var(--pink);color:white;box-shadow:0 6px 0 #d85f91;transition:transform .12s}button:active{transform:translateY(3px);box-shadow:0 3px 0 #d85f91}button.secondary{background:#f4e5f0;color:#945579;box-shadow:0 5px 0 #e4c9dc}.full{width:100%;margin-top:12px}
+.hidden{display:none!important}.q{margin:20px 0 8px;font-size:18px;font-weight:800}.answers{display:grid;gap:10px;margin:16px 0}.answer{display:block;text-align:left;background:#fff7fb;border:2px solid #f6d7e5;color:#68465a;padding:13px 14px;border-radius:14px;font-weight:650;cursor:pointer}.answer input{accent-color:#e86f9f;margin-right:9px}.feedback{min-height:24px;font-size:14px;color:#a34b75;font-weight:700;margin-top:12px}.progress{height:8px;border-radius:99px;background:#f4dce8;overflow:hidden;margin:17px 0}.bar{height:100%;width:0;background:#f07da9;transition:width .3s}
+.note{background:#fff6fa;border:1px dashed #e9a2c1;border-radius:18px;padding:17px;text-align:left;line-height:1.8;margin:18px 0}.signature{font-weight:800;color:#b94f82;margin-top:18px}.tiny{font-size:12px;color:#987d8e;margin-top:18px}.spark{font-size:25px;letter-spacing:8px}
+</style>
+</head>
+<body>
+<main class="wrap">
+<section class="card" id="intro">
+ <div class="tag">A LITTLE SURPRISE FOR YOU 🎀</div>
+ <div class="bear">🧸</div>
+ <h1>Hai, Safira Dwi Susilo!</h1>
+ <p class="lead">Ada kejutan kecil yang sudah disiapkan khusus buat kamu. Tapi sebelum dibuka, jawab 3 pertanyaan ringan dulu, ya! 💗</p>
+ <button class="full" id="start">Mulai kejutan ✨</button>
+ <p class="tiny">Psst... jangan buru-buru ditutup ya! ♡</p>
+</section>
+<section class="card hidden" id="quiz">
+ <div class="tag">MINI QUIZ 💌</div>
+ <div class="progress"><div class="bar" id="bar"></div></div>
+ <p class="tiny" id="counter"></p>
+ <div class="q" id="question"></div>
+ <div class="answers" id="answers"></div>
+ <p class="feedback" id="feedback" aria-live="polite"></p>
+ <button class="full" id="next">Lanjut 💕</button>
+</section>
+<section class="card hidden" id="surprise">
+ <div class="tag">SURPRISE UNLOCKED 🎉</div>
+ <div class="bear">🎂</div>
+ <div class="spark">✨ 🎀 ✨</div>
+ <h1>Happy Birthday,<br>Safira!</h1>
+ <p class="lead">Selamat bertambah usia! 🥳</p>
+ <div class="note">
+  Semoga di umur yang baru ini, Safira selalu diberi kesehatan, kebahagiaan, dan banyak alasan untuk tersenyum. Semoga hal-hal baik datang satu per satu, impian yang sedang diperjuangkan makin dekat, dan hari-harimu dipenuhi orang-orang yang tulus menyayangimu.
+  <br><br>Terus jadi Safira yang ceria, kuat, dan istimewa dengan caramu sendiri. Jangan lupa bahagia hari ini, karena hari ini adalah hari spesialmu! 💗
+ </div>
+ <div class="bear">🌷💝🌷</div>
+ <p class="signature">With lots of good wishes,<br>seseorang yang ingin membuatmu tersenyum ♡</p>
+ <button class="full" id="again">Lihat lagi dari awal ↻</button>
+ <p class="tiny">Made with care, just for Safira.</p>
+</section>
+</main>
+<script>
+const questions=[
+ {q:"Kalau hari ini ada satu hal yang wajib dilakukan, apa?",a:["Senyum yang lebar 😊","Cemberut seharian 😶","Lupa kalau hari ini spesial 🙈"],good:0,ok:"Nah, senyum itu cocok banget buat hari spesial! 💗"},
+ {q:"Pilih hadiah kejutan yang paling gemas!",a:["Sekotak cokelat 🍫","Boneka lucu 🧸","Buket bunga 🌷"],good:-1,ok:"Pilihan yang lucu! Semoga suatu hari kejutan baik itu datang ya 🎁"},
+ {q:"Siap menerima ucapan spesial hari ini?",a:["Siap banget! 🎉","Tentu dong! 💕","Aku sudah penasaran! ✨"],good:-1,ok:"Yeay! Saatnya membuka kejutanmu! 🎀"}
+];
+let index=0,chosen=[];
+const $=id=>document.getElementById(id);
+function show(id){['intro','quiz','surprise'].forEach(x=>$(x).classList.toggle('hidden',x!==id));}
+function render(){const item=questions[index];$('counter').textContent=`Pertanyaan ${index+1} dari ${questions.length}`;$('bar').style.width=`${index/questions.length*100}%`;$('question').textContent=item.q;$('answers').innerHTML='';$('feedback').textContent='';$('next').disabled=true;$('next').style.opacity='.55';item.a.forEach((answer,i)=>{const label=document.createElement('label');label.className='answer';const input=document.createElement('input');input.type='radio';input.name='answer';input.value=i;input.addEventListener('change',()=>{chosen[index]=i;$('feedback').textContent=item.good===i?'Betul! 💖':item.ok;$('next').disabled=false;$('next').style.opacity='1';});label.append(input,document.createTextNode(answer));$('answers').append(label);});$('next').textContent=index===questions.length-1?'Buka kejutan 🎁':'Lanjut 💕';}
+$('start').addEventListener('click',()=>{index=0;chosen=[];show('quiz');render();});
+$('next').addEventListener('click',()=>{if(chosen[index]===undefined)return;if(index<questions.length-1){index++;render();}else{show('surprise');$('bar').style.width='100%';}});
+$('again').addEventListener('click',()=>{index=0;chosen=[];show('intro');});
+</script>
+</body>
+</html>
